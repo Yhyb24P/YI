@@ -6,24 +6,36 @@
       "lines": 5
     },
     "README.md": {
-      "sha256": "dd60c627d42fbfdf0cd77cac7bdb4d358986c80e4c90309122023829dd9ce6c1",
-      "lines": 44
+      "sha256": "66e3b10b2cf37eea855145d010660eef11ea7fff9fa0e60a2e2842cb781219af",
+      "lines": 62
+    },
+    "SKILL.md": {
+      "sha256": "5254cdff8226231760abc8f193d2e3e34286ef2105a8c4f42b72c189108bec8b",
+      "lines": 30
+    },
+    "examples/writing.md": {
+      "sha256": "5751c2a71cc3e88844b1dac8788cf4568ba97295e641a86ba9ee8c85c70be19e",
+      "lines": 15
     },
     "initialize.txt": {
-      "sha256": "e6e5fba06486917f46a454cbb058dccfdd2deee4e2cd0bd3d3333d822e6e9348",
+      "sha256": "7846e9203127ca3b53b2059aca7e51b9b23da32459ee5477ab50d9fef01d7446",
       "lines": 21
     },
     "research.md": {
-      "sha256": "1968fe3e068dd255be4b364b1bc7e95703d6ff7e1f9a2e29c101175815db632a",
-      "lines": 115
+      "sha256": "3e3e99d30d5cb48ad76ee042a19578e1ae07dd95054bb5df089d491323f8f7fd",
+      "lines": 125
     },
     "retrofit.txt": {
       "sha256": "060df8463a16111366a6038640cb8b529f6edcdd0dee1ee34146eb7a71f02adf",
       "lines": 42
     },
+    "scripts/yi.py": {
+      "sha256": "4f82ad617bd5c782fdd36f6bc5e413d99ade37f6133dfabf7855c3e3e6558f5c",
+      "lines": 156
+    },
     "structure-and-budget.md": {
-      "sha256": "5f12d2c95a30f64b2cb3c9a87fd5c94fe23a2b6de1f0ffcdae58139239554fb3",
-      "lines": 114
+      "sha256": "1fd7b83d03403604387d04de87b3ed24be5b148e368488922aa2e83bffaaf651",
+      "lines": 103
     },
     "templates/AGENTS.md": {
       "sha256": "bbdcc648630de228c5fc63986a218092696a13d912f1a2cc3c1a9448eb7975b6",
@@ -34,12 +46,12 @@
       "lines": 19
     },
     "templates/pre-commit": {
-      "sha256": "79bed5c0f7c77ec4f7834c500223c9c52bfca6c8aac6f791e5d4e43a89ca637a",
-      "lines": 37
+      "sha256": "af2f3eae97eaa134604beb927465215836d8ce0e1d97e3226eb379b814699178",
+      "lines": 4
     },
     "tests/test_hook.py": {
-      "sha256": "3d01df8a4bf9a23d296f1777c76068bda800ec8e1a48fe94bd477c935166b539",
-      "lines": 76
+      "sha256": "9e3f30ff783184d42576275242e5e4e8cf42cf05b4d28c7cd7832196989941c3",
+      "lines": 141
     },
     "writing.txt": {
       "sha256": "5198a51801836ac9b43f6ce417fe9f5e645282c66dc71d5bbad339c200e6c8ce",
@@ -120,7 +132,7 @@
     ]
   },
   "local_links": "all resolve",
-  "updated_at": "2026-11-13T02:13:02.376235+00:00",
+  "updated_at": "2026-11-13T02:31:54.424250+00:00",
   "ratchet_custom_groups_probe": {
     "version": "0.2.3",
     "source": "https://github.com/krishansubudhi/ratchet/tree/1f7bf90255015df6581cb4d08b8ab2b41a23a87f",
@@ -186,7 +198,8 @@
       "500 untracked lines create no allowance",
       "unstaged policy is not overwritten",
       "growth after tightening is rejected"
-    ]
+    ],
+    "status": "historical before unified YI tool"
   },
   "project_name": "太易",
   "project_abbreviation": "YI",
@@ -221,12 +234,41 @@
     "hook_regression": "passed",
     "shell_syntax": "passed",
     "local_links": "passed",
-    "local_user_paths": "removed"
+    "local_user_paths": "removed",
+    "status": "historical before unified YI tool"
   },
   "writing_workflow": {
     "artifact": "writing.txt",
     "validation": "manual review of scope, meaning preservation, domain terms and delivery instructions; local links resolve",
     "automation": "no semantic verifier included",
-    "third_party_skill_files_bundled": false
+    "third_party_skill_files_bundled": false,
+    "status": "historical before unified YI tool"
+  },
+  "current_validation": {
+    "checked_at": "2026-11-13T02:31:54.422116+00:00",
+    "command": ".cache/ratchet-env/bin/python -m unittest discover -s tests -v",
+    "tests_passed": 7,
+    "skill_schema": "passed quick_validate.py",
+    "shell_syntax": "passed",
+    "scope": [
+      "staged initialization ignores working changes and untracked files",
+      "growth, grant, tighten, regrowth sequence",
+      "unstaged policy preserved",
+      "scope changes require explicit flag",
+      "committed baseline cannot be recreated",
+      "docs and tests grouped separately; assets reported",
+      "budgeted symlinks and LFS pointers rejected",
+      "hook delegates to the same implementation",
+      "initial policy symlink is not followed"
+    ],
+    "writing_evidence": "examples/writing.md is a worked example set, not an independent model benchmark",
+    "not_executed": [
+      "paid model comparison",
+      "long-term user study",
+      "native Windows execution",
+      "remote enforcement setup",
+      "automatic skill installation",
+      "migration of CoEvo to the new Python tool"
+    ]
   }
 }
