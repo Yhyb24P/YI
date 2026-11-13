@@ -14,11 +14,15 @@
       "lines": 5
     },
     "README.md": {
-      "sha256": "4c21bc876ac0d6b1b3fc75615c7a8da2095045430ea7979abb5deb2f501fe6ef",
-      "lines": 66
+      "sha256": "58d3039c59443dace7871a6c88ba431cdb1e93c1a2f9ec2170201b6b8afc8dd3",
+      "lines": 70
     },
     "SKILL.md": {
       "sha256": "5254cdff8226231760abc8f193d2e3e34286ef2105a8c4f42b72c189108bec8b",
+      "lines": 30
+    },
+    "examples/continuous-use.md": {
+      "sha256": "3672913277d8af13330896b133d64986a31c1308f4c365c7fcbd65b045decc6e",
       "lines": 30
     },
     "examples/writing.md": {
@@ -30,15 +34,15 @@
       "lines": 21
     },
     "research.md": {
-      "sha256": "3e3e99d30d5cb48ad76ee042a19578e1ae07dd95054bb5df089d491323f8f7fd",
-      "lines": 125
+      "sha256": "668cdbcda37c4b87df88d3225d4ed40f2fec6161420c385af5a935ce6306d18f",
+      "lines": 143
     },
     "retrofit.txt": {
       "sha256": "060df8463a16111366a6038640cb8b529f6edcdd0dee1ee34146eb7a71f02adf",
       "lines": 42
     },
     "scripts/yi.py": {
-      "sha256": "e7d9bbbdcf879c156b3f18c84e7fc2100fecc8941d77dcd360c4733e419c81f0",
+      "sha256": "f6743a981e1d0ebb696237502ca8db21cf997741ddcd18ee8bd72dadff905d6f",
       "lines": 162
     },
     "structure-and-budget.md": {
@@ -58,8 +62,8 @@
       "lines": 4
     },
     "tests/test_hook.py": {
-      "sha256": "201392a50835759fab6e9060a2bc30d1dacf3e98ec831cfaa6fd5748c02dc85f",
-      "lines": 166
+      "sha256": "2cdf252685240c8e49f0543a02de37a514aa8946c01fc030c47c66ed035f19d5",
+      "lines": 191
     },
     "writing.txt": {
       "sha256": "5198a51801836ac9b43f6ce417fe9f5e645282c66dc71d5bbad339c200e6c8ce",
@@ -140,7 +144,7 @@
     ]
   },
   "local_links": "all resolve",
-  "updated_at": "2026-11-13T02:31:54.424250+00:00",
+  "updated_at": "2026-11-13T03:09:49.232731+00:00",
   "ratchet_custom_groups_probe": {
     "version": "0.2.3",
     "source": "https://github.com/krishansubudhi/ratchet/tree/1f7bf90255015df6581cb4d08b8ab2b41a23a87f",
@@ -255,7 +259,7 @@
   "current_validation": {
     "checked_at": "2026-11-13T02:31:54.422116+00:00",
     "command": ".cache/ratchet-env/bin/python -m unittest discover -s tests -v",
-    "tests_passed": 8,
+    "tests_passed": 10,
     "skill_schema": "passed quick_validate.py",
     "shell_syntax": "passed",
     "scope": [
@@ -269,7 +273,9 @@
       "hook delegates to the same implementation",
       "initial policy symlink is not followed",
       "plain text and extensionless hooks covered",
-      "scope approval tied to exact policy digest"
+      "scope approval tied to exact policy digest",
+      "group order changes cannot redirect over-budget tests",
+      "stdout parses as one JSON for successful init/budget/check/tighten"
     ],
     "writing_evidence": "examples/writing.md is a worked example set, not an independent model benchmark",
     "not_executed": [
@@ -283,5 +289,22 @@
     "skill": "discovered in active session skill catalog and read",
     "coevo": "same Python tool and thin hook installed locally; migration regressions pass",
     "budget_policy": "tracked by Git rather than recursive verification hashes"
+  },
+  "continuous_use_case": {
+    "base_commit": "0d48a9d5e973d53939ac22515ed3832e5522603f",
+    "before": {
+      "tests": 10,
+      "failures": 1,
+      "errors": 1,
+      "seconds": 1.829
+    },
+    "after": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 1.996
+    },
+    "method": "same developer authored reproductions and fixes; not an independent effectiveness trial",
+    "artifact": "examples/continuous-use.md"
   }
 }

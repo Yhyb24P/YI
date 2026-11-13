@@ -164,3 +164,28 @@ class BudgetTests(unittest.TestCase):
         self.write('writing.txt', 'Clear facts\nMore\n')
         self.git('add', 'writing.txt')
         self.yi('check', 1)
+
+    def test_group_order_cannot_move_tests_into_source_allowance(self):
+        self.write('tests/test_app.py', 'assert True\n')
+        self.git('add', '.')
+        self.yi('init')
+        cfg = self.config()
+        cfg['ceilings']['source'] = 3
+        self.write('.ratchet.json', json.dumps(cfg))
+        self.git('add', '.ratchet.json')
+        self.git('commit', '-qm', 'baseline with deliberate source allowance')
+        self.write('tests/test_app.py', 'assert True\nassert 1\n')
+        self.git('add', 'tests/test_app.py')
+        self.yi('check', 1)
+        cfg['groups'] = {'source': cfg['groups']['source'],
+                         **{g: v for g, v in cfg['groups'].items() if g != 'source'}}
+        self.write('.ratchet.json', json.dumps(cfg))
+        self.git('add', '.ratchet.json')
+        self.yi('check', 2)
+
+    def test_stdout_is_one_json_report_for_all_successful_actions(self):
+        for action in ['init', 'budget', 'check', 'tighten']:
+            if action != 'init':
+                self.git('add', '.ratchet.json')
+            report = json.loads(self.yi(action).stdout)
+            self.assertEqual(report['groups']['source']['lines'], 1)

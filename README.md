@@ -64,3 +64,7 @@ chmod +x .git/hooks/pre-commit
 ## 本仓库的实际接入
 
 YI 自身的预算记录在 `.ratchet.json`，本地提交入口为 `.githooks/pre-commit`，CI 同时运行测试与预算检查。新克隆不会自动安装 Git hook；安装上述环境后，在没有现存 pre-commit 时链接 `.git/hooks/pre-commit` 到 `../../.githooks/pre-commit`。已有 hook 应合并调用。CI 配置不自动开启分支保护。
+
+命令成功时标准输出是一份 JSON 报告，操作提示写入标准错误，可直接供脚本解析。统计范围包含分组顺序：文件属于第一个匹配组，重排组也需要范围批准。
+
+实际维护案例见 [连续修改记录](examples/continuous-use.md)：从分组重排绕过的复现，到修复后的 JSON 接口改进；记录测试与预算代价，不将单例当作长期效果证明。
