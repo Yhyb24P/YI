@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """YI's staged growth budget. No checkout, model call, or implicit Git staging."""
 import argparse
+import hashlib
 import importlib.metadata
 import json
 from pathlib import Path
@@ -43,8 +44,8 @@ def default_policy(measure, cap):
     return {'version': 1, 'max_file_lines': cap, 'slack': 0,
             'groups': {
                 'tests': group(list(measure.TEST_GLOBS), sorted(measure.CODE_EXTS)),
-                'docs': group(['**'], ['.md', '.rst']),
-                'maintenance': group(['scripts/**', '.yi/**', 'configs/**', '.github/**',
+                'docs': group(['**'], ['.md', '.rst', '.txt']),
+                'maintenance': group(['scripts/**', '.yi/**', 'configs/**', '.github/**', '.githooks/**', 'templates/**',
                                       '*.toml', '*.json', '*.yaml', '*.yml', '*.lock',
                                       '*.sh', '.gitignore', '.gitattributes', 'Makefile'],
                                      sorted(measure.CODE_EXTS | {'.toml', '.json', '.yaml', '.yml', '.lock', ''})),
@@ -117,17 +118,22 @@ def main(argv=None):
             cfg['ceilings'] = totals
             cfg['file_ceilings'] = {p: n for files in sizes.values()
                                     for p, n in files.items() if n > args.max_file_lines}
+        log = config.parse_grants((contents(root, entries, config.GRANTS) or b'').decode())
         base = None
         base_log = []
         if base_ref:
             old = git(root, 'show', f'{base_ref}:{config.CONFIG}', optional=True)
             if old:
                 base = config.parse(old.decode())
-                if base['groups'] != cfg['groups'] and not args.accept_policy_change:
-                    raise ValueError('Counting scope changed; review it and explicitly use --accept-policy-change')
             old_log = git(root, 'show', f'{base_ref}:{config.GRANTS}', optional=True)
             base_log = config.parse_grants((old_log or b'').decode())
-        log = config.parse_grants((contents(root, entries, config.GRANTS) or b'').decode())
+        if base and base['groups'] != cfg['groups']:
+            scope = hashlib.sha256(json.dumps(list(cfg['groups'].items()),
+                                   sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+            approved = any(g.get('scope_sha256') == scope and g.get('reason') and g.get('by')
+                           for g in log[len(base_log):])
+            if not approved and not args.accept_policy_change:
+                raise ValueError(f'Counting scope changed; review scope SHA-256 {scope} and record its approval')
         violations = rules.check(cfg, sizes, base, base_log, log)
         print(json.dumps({'groups': {g: {'lines': n, 'ceiling': cfg['ceilings'][g],
                                              'remaining': cfg['ceilings'][g] - n} for g, n in totals.items()},

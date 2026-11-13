@@ -73,7 +73,8 @@
       "exclude": [],
       "extensions": [
         ".md",
-        ".rst"
+        ".rst",
+        ".txt"
       ]
     },
     "maintenance": {
@@ -90,7 +91,9 @@
         "*.sh",
         ".gitignore",
         ".gitattributes",
-        "Makefile"
+        "Makefile",
+        ".githooks/**",
+        "templates/**"
       ],
       "exclude": [],
       "extensions": [
@@ -204,9 +207,9 @@
     }
   },
   "ceilings": {
-    "tests": 126,
-    "docs": 242,
-    "maintenance": 446,
+    "tests": 150,
+    "docs": 292,
+    "maintenance": 473,
     "source": 0
   },
   "file_ceilings": {}
