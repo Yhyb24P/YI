@@ -60,3 +60,7 @@ chmod +x .git/hooks/pre-commit
 [研究依据](research.md)解释取舍，[预算方案](structure-and-budget.md)记录 CoEvo 试点与修正。CoEvo 只证明部分工程行为，不证明 YI 已带来长期跨项目收益。[verification.json](verification.json)区分当前可复跑测试与未随仓库分发的历史观察。
 
 欢迎提交实际任务、重复实现或文字改坏含义的案例，说明模型、工具、输入、结果及成本。贡献应改善行为、表达或维护成本，而不是增加一套相似检查。
+
+## 本仓库的实际接入
+
+YI 自身的预算记录在 `.ratchet.json`，本地提交入口为 `.githooks/pre-commit`，CI 同时运行测试与预算检查。新克隆不会自动安装 Git hook；安装上述环境后，在没有现存 pre-commit 时链接 `.git/hooks/pre-commit` 到 `../../.githooks/pre-commit`。已有 hook 应合并调用。CI 配置不自动开启分支保护。
