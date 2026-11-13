@@ -43,7 +43,7 @@ README 写简短的职责目录表即可，不保存自动过期的完整文件�
 
 YI 的 [scripts/yi.py](scripts/yi.py)复用 Ratchet 0.2.3 的预算规则，直接从 Git 索引读 blob。`init`、`budget`、`check` 和 `tighten` 使用相同数据来源；不临时检出文件、不运行 checkout filter，也不把未跟踪内容算入额度。具体安装与调用见 [README](README.md#可执行预算)。
 
-初始化前审阅并暂存实际纳入项目的文件。工具创建 `.ratchet.json` 后列出各组用量及 `outside_budget`，核对未覆盖路径再暂存配置。默认区分源码、测试、Markdown/reStructuredText 说明与维护配置。它不能判断一份文本是现役说明还是历史证据，分组和范围仍需按实际用途调整；Notebook、CSV、PDF 等未自动作为源码计量。新语言、无扩展名入口、资源和生成内容要在范围审阅中处理。工具不以目录外观判断必要性。
+初始化前审阅并暂存实际纳入项目的文件。工具创建 `.ratchet.json` 后列出各组用量及 `outside_budget`，核对未覆盖路径再暂存配置。默认区分源码、测试、Markdown/reStructuredText/纯文本说明与维护配置。它不能判断一份文本是现役说明还是历史证据，分组和范围仍需按实际用途调整；Notebook、CSV、PDF 等未自动作为源码计量。新语言、无扩展名入口、资源和生成内容要在范围审阅中处理。工具不以目录外观判断必要性。
 
 已有基线拒绝再次 `init`；从 HEAD 删除配置也不能重新初始化以抹去原有预算。正常工作使用 `check`，清理通过行为验证并暂存后使用 `tighten`，再暂存更新后的配置。工作区配置与暂存配置不一致时拒绝覆盖。已跟踪的有效修改、新文件和外部材料不能自动被纳入，必须通过用户的正常版本控制选择。
 
@@ -55,7 +55,7 @@ YI 的 [scripts/yi.py](scripts/yi.py)复用 Ratchet 0.2.3 的预算规则，直�
 | --- | --- |
 | 普通暂存增长超限 | 退出 1，hook 阻止普通提交 |
 | 手改数值上限但没有 grant | 与基线比较后拒绝 |
-| 改 include/exclude/extensions 或组 | 默认退出 2；审阅后显式使用 `--accept-policy-change` |
+| 改 include/exclude/extensions 或组 | 默认退出 2；接受绑定实际 groups SHA-256 的新增范围批准，或显式本地审阅参数 |
 | 缺少暂存配置、错误版本或冲突索引 | 退出 2 |
 | 受限路径为符号链接、子模块或 LFS 指针 | 拒绝计量，避免读外部文件或误计指针 |
 | 未匹配的路径 | 列在 `outside_budget`，不宣称已经受限 |

@@ -1,5 +1,6 @@
 """Exercise YI through real Git indexes; no source-text assertions."""
 import json
+import hashlib
 from pathlib import Path
 import shutil
 import subprocess
@@ -93,6 +94,17 @@ class BudgetTests(unittest.TestCase):
         self.git('add', '.ratchet.json')
         self.yi('check', 2)
         self.yi('check', 0, '--accept-policy-change')
+        digest = hashlib.sha256(json.dumps(list(cfg['groups'].items()), sort_keys=True,
+                                           separators=(',', ':')).encode()).hexdigest()
+        entry = {'target': 'scope:' + digest, 'lines': 0, 'scope_sha256': digest,
+                 'reason': 'test scope approval', 'by': 'test'}
+        self.write('.ratchet-grants.jsonl', json.dumps(entry) + '\n')
+        self.git('add', '.ratchet-grants.jsonl')
+        self.yi('check')
+        cfg['groups']['source']['exclude'] = ['*.py']
+        self.write('.ratchet.json', json.dumps(cfg))
+        self.git('add', '.ratchet.json')
+        self.yi('check', 2)  # A grant for a different scope cannot be reused.
         self.git('rm', '-f', '.ratchet.json')
         self.yi('check', 2)
         self.yi('init', 2)
@@ -139,3 +151,16 @@ class BudgetTests(unittest.TestCase):
         (self.root / '.ratchet.json').symlink_to(external)
         self.yi('init', 2)
         self.assertFalse(external.exists())
+
+    def test_plain_text_and_extensionless_hooks_are_budgeted(self):
+        self.write('writing.txt', 'Clear facts\n')
+        self.write('.githooks/pre-commit', '#!/bin/sh\nexit 0\n')
+        self.write('templates/pre-commit', '#!/bin/sh\nexit 0\n')
+        self.git('add', '.')
+        self.yi('init')
+        self.assertEqual(self.config()['ceilings']['docs'], 1)
+        self.assertEqual(self.config()['ceilings']['maintenance'], 4)
+        self.git('add', '.ratchet.json')
+        self.write('writing.txt', 'Clear facts\nMore\n')
+        self.git('add', 'writing.txt')
+        self.yi('check', 1)

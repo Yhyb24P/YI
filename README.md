@@ -28,7 +28,7 @@ python3 -m venv .cache/ratchet-env
 .cache/ratchet-env/bin/python "$YI/scripts/yi.py" budget
 ```
 
-源码、测试、说明和维护文件默认分组；初始化仅从暂存 Git blob 计数，未暂存和未跟踪文件不会变成额度。默认分组与 2,000 行文件上限是起点，应按项目职责校准。未匹配文件会列出，不能将其误称为已覆盖。配置范围变化需要明确使用 `--accept-policy-change`，数值上限增长仍需 Ratchet grant 记录。此选项不是人员认证。
+源码、测试、说明和维护文件默认分组；初始化仅从暂存 Git blob 计数，未暂存和未跟踪文件不会变成额度。默认分组与 2,000 行文件上限是起点，应按项目职责校准。未匹配文件会列出，不能将其误称为已覆盖。配置范围变化默认拒绝；经用户授权后，把实际 groups 的 SHA-256 写入新增 grant 的 `scope_sha256` 字段，检查仅接受该范围。`--accept-policy-change` 只用于显式审阅时的本地检查，不供 CI 全局放行。数值上限增长仍需 Ratchet grant 记录；记录不等于人员认证。
 
 把同一工具用于本地 Git 提交（POSIX shell）：
 
