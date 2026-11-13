@@ -1,0 +1,222 @@
+{
+  "checked_at": "2026-11-13T01:26:32.081262+00:00",
+  "files": {
+    ".gitignore": {
+      "sha256": "6ffcc541ec42d3574ff487e4578b21883e41f7de0cfaf329eab10bab694b2a94",
+      "lines": 5
+    },
+    "README.md": {
+      "sha256": "f153c0fda8e686b54edcc7a2e5a3382dd96dd51dfa3c8ff8371a8f6501531dcb",
+      "lines": 41
+    },
+    "initialize.txt": {
+      "sha256": "e2b3bb6e6a795e04e49471f08d8e4e4389cc60d2efe543b663cfc9801117f7e5",
+      "lines": 21
+    },
+    "research.md": {
+      "sha256": "69fb7887130f0ad5f583409dbc6b9f7f11c3803f58e6d1885b7ba0fba124021b",
+      "lines": 113
+    },
+    "retrofit.txt": {
+      "sha256": "060df8463a16111366a6038640cb8b529f6edcdd0dee1ee34146eb7a71f02adf",
+      "lines": 42
+    },
+    "structure-and-budget.md": {
+      "sha256": "5f12d2c95a30f64b2cb3c9a87fd5c94fe23a2b6de1f0ffcdae58139239554fb3",
+      "lines": 114
+    },
+    "templates/AGENTS.md": {
+      "sha256": "bbdcc648630de228c5fc63986a218092696a13d912f1a2cc3c1a9448eb7975b6",
+      "lines": 20
+    },
+    "templates/README.md": {
+      "sha256": "48f600567e66d56bca078e8841f6b08f41215b3c35330937f4b1e8236725d024",
+      "lines": 19
+    },
+    "templates/pre-commit": {
+      "sha256": "79bed5c0f7c77ec4f7834c500223c9c52bfca6c8aac6f791e5d4e43a89ca637a",
+      "lines": 37
+    },
+    "tests/test_hook.py": {
+      "sha256": "3d01df8a4bf9a23d296f1777c76068bda800ec8e1a48fe94bd477c935166b539",
+      "lines": 76
+    }
+  },
+  "existing_prose_selftest": {
+    "command": "node <local-skill-directory>/biology-writing-zh/scripts/selftest.cjs",
+    "exit_code": 0,
+    "output": "== 合格文本 · 零误报 ==  7/7\n  PASS  C01\n  PASS  C02\n  PASS  C03\n  PASS  C04\n  PASS  C05\n  PASS  C06\n  PASS  C07\n\n== 必改文本 · 必命中 ==  8/8\n  PASS  M01\n  PASS  M02\n  PASS  M03\n  PASS  M04\n  PASS  M05\n  PASS  M06\n  PASS  M07\n  PASS  M08\n\n== 保真负例 · 必检出 ==  6/6\n  PASS  F01\n  PASS  F02\n  PASS  F03\n  PASS  F04\n  PASS  F05\n  PASS  F06\n\n== 保真正例 · 必放行 ==  1/1\n  PASS  P01\n\n误报率（合格文本被命中）: 0/7 = 0.0%\n清理漏检: 0/8\n保真漏检: 0/6\n\nRESULT: PASS — 0 项未通过\n三类均通过：既不误改合格文本，也不放过黑话，还能检出命题改动。\n"
+  },
+  "number_reassignment_probe": {
+    "before": "甲组有10例，乙组有20例。",
+    "after": "甲组有20例，乙组有10例。",
+    "exit_code": 0,
+    "result": {
+      "result": {
+        "lexicon": null,
+        "fidelity": []
+      },
+      "blockCount": 0,
+      "warnCount": 0
+    },
+    "interpretation": "false negative: numerical association changed"
+  },
+  "software_vocabulary_probe": {
+    "text": "通过依赖注入解耦存储接口与业务逻辑。",
+    "exit_code": 1,
+    "result": {
+      "result": {
+        "lexicon": {
+          "hits": [
+            {
+              "term": "解耦",
+              "level": "block",
+              "pos": "1:7",
+              "why": "软工黑话",
+              "fix": "分离 / 独立",
+              "start": 6,
+              "end": 8
+            }
+          ],
+          "shielded": []
+        },
+        "fidelity": null
+      },
+      "blockCount": 1,
+      "warnCount": 0,
+      "failed": true
+    },
+    "interpretation": "biology lexicon unsuitable as general software gate"
+  },
+  "review": {
+    "scope": "configuration package and source research, not target-project refactoring",
+    "new_projects": "initialize.txt and templates",
+    "bloated_projects": "retrofit.txt",
+    "coverage": [
+      "modules and interfaces",
+      "one-off logic",
+      "input validation",
+      "error handling and compatibility",
+      "tests and repeated review",
+      "documents and scripts",
+      "jargon and fidelity",
+      "lifecycle and platform loading",
+      "Ratchet enforced budget design",
+      "project tree lifecycle",
+      "existing local repository accumulation"
+    ],
+    "not_verified": [
+      "long-term comparative effectiveness",
+      "client configuration activation",
+      "remote CI or branch protection",
+      "LFS/submodule/sparse checkout",
+      "Windows native hook execution",
+      "all scientific-presentation scripts",
+      "all modern-web-guidance entries"
+    ]
+  },
+  "local_links": "all resolve",
+  "updated_at": "2026-11-13T02:03:11.251402+00:00",
+  "ratchet_custom_groups_probe": {
+    "version": "0.2.3",
+    "source": "https://github.com/krishansubudhi/ratchet/tree/1f7bf90255015df6581cb4d08b8ab2b41a23a87f",
+    "scope": "temporary fixture, not deployment",
+    "results": [
+      "four-group baseline passes",
+      "docs growth returns 1",
+      "tighten reduces docs ceiling",
+      "regrowth returns 1"
+    ]
+  },
+  "workspace_inventory_scope": "git_files immediate directories and tracked paths; selected README excerpts, not full audit or disk usage",
+  "coevo_candidate_snapshot": {
+    "scope": "temporary index based on HEAD plus tracked working changes and candidate config, hook, test; other untracked files excluded",
+    "groups": {
+      "source": {
+        "snapshot": 5610,
+        "ceiling": 5610
+      },
+      "tests": {
+        "snapshot": 3057,
+        "ceiling": 3057
+      },
+      "docs": {
+        "snapshot": 192,
+        "ceiling": 344
+      },
+      "experiments": {
+        "snapshot": 69136,
+        "ceiling": 166831
+      },
+      "maintenance": {
+        "snapshot": 8590,
+        "ceiling": 8806
+      },
+      "entrypoints": {
+        "snapshot": 57,
+        "ceiling": 57
+      }
+    },
+    "interpretation": "workspace baseline includes untracked material; future staging decisions must precede rebasing",
+    "status": "historical pre-fix observation"
+  },
+  "template_hook_probe": {
+    "version": "0.2.3",
+    "scope": "CoEvo hook and identical YI template; tests/test_growth_hook.py temporary repositories",
+    "expected_exit_codes": {
+      "unborn_baseline": 0,
+      "staged_growth_with_unstaged_shrink": 1,
+      "unpaid_ceiling_raise": 1,
+      "scope_change_still_passes": 0,
+      "recorded_grant": 0,
+      "missing_staged_config": 2,
+      "missing_executable": 2
+    },
+    "limitations": [
+      "not an authenticated grant",
+      "no protected scope",
+      "not verified with LFS, submodules, sparse checkout, Windows, or remote CI"
+    ],
+    "additional_verified": [
+      "budget/tighten use staged content",
+      "500 untracked lines create no allowance",
+      "unstaged policy is not overwritten",
+      "growth after tightening is rejected"
+    ]
+  },
+  "project_name": "太易",
+  "project_abbreviation": "YI",
+  "coevo_baseline_repair": {
+    "baseline_kind": "initial candidate, not yet committed",
+    "base_commit": "86d6a64d14f6c1b160af62e6d39a5a8181de3eb1",
+    "candidate_tree": "3de153eb7a4c6d71f75edef86c1ac5c4ad19dda4",
+    "selection": "HEAD plus tracked working changes and .ratchet.json, .githooks/pre-commit, tests/test_growth_hook.py",
+    "before": {
+      "source": 5610,
+      "tests": 3057,
+      "docs": 344,
+      "experiments": 166831,
+      "maintenance": 8806,
+      "entrypoints": 57
+    },
+    "after": {
+      "source": 5610,
+      "tests": 3086,
+      "docs": 192,
+      "experiments": 69136,
+      "maintenance": 8590,
+      "entrypoints": 76
+    },
+    "staged_check": "ratchet: ok -- source 5,610/5,610, tests 3,086/3,086, docs 192/192, experiments 69,136/69,136, maintenance 8,590/8,590, entrypoints 76/76\n",
+    "extra_untracked_files_included": false,
+    "regression": "passed staged growth, unpaid raise, grant, untracked-file isolation, tighten, preservation of unstaged policy, regrowth, missing configuration/tool",
+    "real_index_unchanged": true
+  },
+  "publication_note": "Local paths removed; source observations retained. Historical CoEvo object IDs identify local evidence and are not supplied objects in this repository.",
+  "publication_checks": {
+    "hook_regression": "passed",
+    "shell_syntax": "passed",
+    "local_links": "passed",
+    "local_user_paths": "removed"
+  }
+}

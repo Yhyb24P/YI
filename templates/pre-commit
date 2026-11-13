@@ -1,0 +1,37 @@
+#!/bin/sh
+# Compare the staged snapshot to HEAD, without changing the real index.
+set -eu
+mode=${1:-check}
+case "$mode" in check|budget|tighten) ;; *) echo 'Use check, budget or tighten' >&2; exit 2 ;; esac
+root=$(git rev-parse --show-toplevel)
+ratchet="$root/.cache/ratchet-env/bin/ratchet"
+if [ ! -x "$ratchet" ] || [ "$("$ratchet" --version)" != '0.2.3' ]; then
+    echo 'Install ratchet-size==0.2.3 in .cache/ratchet-env before committing' >&2
+    exit 2
+fi
+snapshot=$(mktemp -d)
+trap 'rm -rf "$snapshot"' EXIT HUP INT TERM
+base=$(git -C "$root" rev-parse --verify HEAD 2>/dev/null || true)
+git -C "$root" checkout-index --all --prefix="$snapshot/"
+unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
+git -C "$snapshot" init -q
+git -C "$snapshot" add --force --all
+if [ "$mode" = budget ]; then
+    "$ratchet" -C "$snapshot" budget
+    exit 0
+fi
+if [ "$mode" = tighten ] && ! cmp -s "$root/.ratchet.json" "$snapshot/.ratchet.json"; then
+    echo 'Stage the current .ratchet.json before tightening; unstaged policy changes would be overwritten' >&2
+    exit 2
+fi
+if [ -n "$base" ]; then
+    git -C "$snapshot" fetch -q --no-tags "$root" "$base"
+    "$ratchet" -C "$snapshot" check --base FETCH_HEAD
+else
+    "$ratchet" -C "$snapshot" check
+fi
+if [ "$mode" = tighten ]; then
+    "$ratchet" -C "$snapshot" tighten
+    cp "$snapshot/.ratchet.json" "$root/.ratchet.json"
+    echo 'Stage the updated .ratchet.json with the cleanup before committing'
+fi
