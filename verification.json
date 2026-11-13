@@ -6,16 +6,16 @@
       "lines": 5
     },
     "README.md": {
-      "sha256": "f153c0fda8e686b54edcc7a2e5a3382dd96dd51dfa3c8ff8371a8f6501531dcb",
-      "lines": 41
+      "sha256": "dd60c627d42fbfdf0cd77cac7bdb4d358986c80e4c90309122023829dd9ce6c1",
+      "lines": 44
     },
     "initialize.txt": {
-      "sha256": "e2b3bb6e6a795e04e49471f08d8e4e4389cc60d2efe543b663cfc9801117f7e5",
+      "sha256": "e6e5fba06486917f46a454cbb058dccfdd2deee4e2cd0bd3d3333d822e6e9348",
       "lines": 21
     },
     "research.md": {
-      "sha256": "69fb7887130f0ad5f583409dbc6b9f7f11c3803f58e6d1885b7ba0fba124021b",
-      "lines": 113
+      "sha256": "1968fe3e068dd255be4b364b1bc7e95703d6ff7e1f9a2e29c101175815db632a",
+      "lines": 115
     },
     "retrofit.txt": {
       "sha256": "060df8463a16111366a6038640cb8b529f6edcdd0dee1ee34146eb7a71f02adf",
@@ -40,6 +40,10 @@
     "tests/test_hook.py": {
       "sha256": "3d01df8a4bf9a23d296f1777c76068bda800ec8e1a48fe94bd477c935166b539",
       "lines": 76
+    },
+    "writing.txt": {
+      "sha256": "5198a51801836ac9b43f6ce417fe9f5e645282c66dc71d5bbad339c200e6c8ce",
+      "lines": 25
     }
   },
   "existing_prose_selftest": {
@@ -116,7 +120,7 @@
     ]
   },
   "local_links": "all resolve",
-  "updated_at": "2026-11-13T02:03:11.251402+00:00",
+  "updated_at": "2026-11-13T02:13:02.376235+00:00",
   "ratchet_custom_groups_probe": {
     "version": "0.2.3",
     "source": "https://github.com/krishansubudhi/ratchet/tree/1f7bf90255015df6581cb4d08b8ab2b41a23a87f",
@@ -218,5 +222,11 @@
     "shell_syntax": "passed",
     "local_links": "passed",
     "local_user_paths": "removed"
+  },
+  "writing_workflow": {
+    "artifact": "writing.txt",
+    "validation": "manual review of scope, meaning preservation, domain terms and delivery instructions; local links resolve",
+    "automation": "no semantic verifier included",
+    "third_party_skill_files_bundled": false
   }
 }
