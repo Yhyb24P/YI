@@ -127,7 +127,7 @@ def main(argv=None):
                 base = config.parse(old.decode())
             old_log = git(root, 'show', f'{base_ref}:{config.GRANTS}', optional=True)
             base_log = config.parse_grants((old_log or b'').decode())
-        if base and base['groups'] != cfg['groups']:
+        if base and list(base['groups'].items()) != list(cfg['groups'].items()):
             scope = hashlib.sha256(json.dumps(list(cfg['groups'].items()),
                                    sort_keys=True, separators=(',', ':')).encode()).hexdigest()
             approved = any(g.get('scope_sha256') == scope and g.get('reason') and g.get('by')
@@ -145,13 +145,13 @@ def main(argv=None):
             with policy.open('x') as output:
                 json.dump(cfg, output, ensure_ascii=False, indent=2)
                 output.write('\n')
-            print('Created .ratchet.json from staged blobs; review scope and stage the file')
+            print('Created .ratchet.json from staged blobs; review scope and stage the file', file=sys.stderr)
         if args.action == 'tighten':
             if policy.is_symlink() or policy.read_bytes() != raw:
                 raise ValueError('Stage the working policy first; refusing to overwrite it')
             updated, _ = rules.tighten(cfg, sizes)
             config.save(str(root), updated)
-            print('Tightened staged totals; stage .ratchet.json with the cleanup')
+            print('Tightened staged totals; stage .ratchet.json with the cleanup', file=sys.stderr)
         return 0
     except (ValueError, OSError, KeyError, TypeError, config_error, importlib.metadata.PackageNotFoundError) as error:
         print(f'yi: {error}', file=sys.stderr)
